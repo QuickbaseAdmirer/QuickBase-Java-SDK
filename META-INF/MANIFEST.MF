@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.intuit.quickbase.api
+Bundle-Name: Intuit Quickbase API for Java
+Bundle-Version: 1.0.1.qualifier
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.commons.httpclient;bundle-version="3.1.0",
+ org.apache.commons.logging;bundle-version="1.0.4",
+ org.apache.commons.codec;bundle-version="1.2"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.intuit.quickbase.api, com.intuit.quickbase.api.query
