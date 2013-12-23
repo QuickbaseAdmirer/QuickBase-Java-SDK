@@ -49,8 +49,8 @@ import static com.intuit.quickbase.api.QuickBaseAPICall.API_FindDBByName;
 public class QuickBaseConnection
 {
     private final static NameValuePair[] NO_PARAMETERS = {};
-    private final static String HTTPS_QB_MAIN = "https://www.quickbase.com/db/main?"; //$NON-NLS-1$
-    private final static String HTTPS_QB = "https://www.quickbase.com/db/"; //$NON-NLS-1$
+    private static String HTTPS_QB_MAIN = "https://www.quickbase.com/db/main?"; //$NON-NLS-1$
+    private static String HTTPS_QB = "https://www.quickbase.com/db/"; //$NON-NLS-1$
     private final static String USERNAME = "username"; //$NON-NLS-1$
     private final static String PASSWORD = "password"; //$NON-NLS-1$
     private final static String DBNAME = "dbname"; //$NON-NLS-1$
@@ -61,8 +61,9 @@ public class QuickBaseConnection
     private final static char QUERY = '?';
 
     private HttpClient httpClient;
-
-    QuickBaseConnection(PasswordAuthentication credentials) throws QuickBaseException
+    private String appToken = null;
+    
+    public QuickBaseConnection(PasswordAuthentication credentials) throws QuickBaseException
     {
         httpClient = new HttpClient();
         execute(authenticate(credentials.getUserName(), credentials.getPassword()));
@@ -135,7 +136,19 @@ public class QuickBaseConnection
         }
         return null;
     }
+    
+    public void setAppToken(String appToken)
+    {
+    	this.appToken = appToken;
+    }
 
+    public void setQBLocation(String https_qb, String https_qb_main)
+    {
+    	QuickBaseConnection.HTTPS_QB = https_qb;
+    	QuickBaseConnection.HTTPS_QB_MAIN = https_qb_main;
+
+    }
+    
     /**
      * Executes a {@link QuickBaseAPICall} for a certain database and returns the database response
      * as a SAX {@link InputSource}.
@@ -186,6 +199,13 @@ public class QuickBaseConnection
     	xml.append("<ticket>");
     	xml.append(getTicket());
     	xml.append("</ticket>");
+    	
+    	if (appToken != null)
+    	{
+    		xml.append("<apptoken>");
+    		xml.append(appToken);
+    		xml.append("</apptoken>");
+    	}
     	
     	for (String element: elements) {
     		xml.append(element);
