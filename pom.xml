@@ -5,7 +5,7 @@
         <modelVersion>4.0.0</modelVersion>
 
         <groupId>com.quickbase</groupId>
-        <artifactId>sdk</artifactId>
+        <artifactId>quickbase-sdk</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <packaging>jar</packaging>
 
